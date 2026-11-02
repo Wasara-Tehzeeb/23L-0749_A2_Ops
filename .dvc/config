@@ -1,0 +1,3 @@
+['remote "origin"']
+    url = s3://dvc
+    endpointurl = https://dagshub.com/Wasara-Tehzeeb/23L-0749_A2_Ops.s3
