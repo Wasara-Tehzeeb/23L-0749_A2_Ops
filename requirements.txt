@@ -1,0 +1,10 @@
+tensorflow
+mlflow
+numpy
+pandas
+matplotlib
+Pillow
+scikit-learn
+Flask
+dvc
+keras-tuner

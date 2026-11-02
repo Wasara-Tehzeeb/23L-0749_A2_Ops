@@ -1,0 +1,10 @@
+assignment2/
+dvc_toy/
+__pycache__/
+*.pyc
+.env
+.vscode/
+dataset_audit.csv
+duplicate_images.csv
+corrupt_files.csv
+/data
