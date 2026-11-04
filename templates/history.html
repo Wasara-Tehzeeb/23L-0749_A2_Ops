@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisionGuard - Prediction History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .container {
+            background: white;
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #00000015;
+        }
+
+        h1 {
+            color: #234a80;
+        }
+
+        table {
+            width: 100%;
+            max-width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+
+        th, td {
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        th:nth-child(1) { width: 28%; }
+        th:nth-child(2) { width: 14%; }
+        th:nth-child(3) { width: 14%; }
+        th:nth-child(4) { width: 30%; }
+        th:nth-child(5) { width: 14%; }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background: #234a80;
+            color: white;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #234a80;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Prediction History</h1>
+
+        <table>
+            <tr>
+                <th>Filename</th>
+                <th>Prediction</th>
+                <th>Confidence</th>
+                <th>Model Used</th>
+                <th>Date</th>
+            </tr>
+
+            {% for record in records %}
+            <tr>
+                <td>{{ record.filename }}</td>
+                <td>{{ record.prediction }}</td>
+                <td>{{ record.confidence }}%</td>
+                <td>{{ record.model_name or "Not recorded" }}</td>
+                <td>{{ record.timestamp }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5">No prediction history available yet.</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <a href="/">Back to Upload</a>
+    </div>
+</body>
+</html>

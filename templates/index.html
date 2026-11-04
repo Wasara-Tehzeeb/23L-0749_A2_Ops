@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisionGuard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .container {
+            background: white;
+            max-width: 500px;
+            margin: auto;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #00000015;
+        }
+
+        h1 { color: #234a80; }
+
+        input { margin: 20px 0; }
+
+        button {
+            background: #234a80;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>VisionGuard</h1>
+        <p>AI-Generated vs Real Image Detection</p>
+
+        <h3>Upload an Image</h3>
+
+        <form action="/predict" method="POST"
+              enctype="multipart/form-data">
+            <input type="file" name="image"
+                   accept="image/*" required>
+            <br>
+            <button type="submit">Analyze Image</button>
+        </form>
+    </div>
+    
+    <div style="text-align: center; margin-top: 25px;">
+        <a href="/history" style="color: #234a80; font-weight: bold;">
+            View Prediction History
+        </a>
+    </div>
+
+</body>
+</html>
