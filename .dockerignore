@@ -1,0 +1,40 @@
+# Python environment and cache
+assignment2/
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Datasets and training outputs
+data/
+notebooks/
+models/
+logs/
+eda_figures/
+results/
+
+# Experiment tracking and version control
+.git/
+.dvc/
+mlruns/
+mlartifacts/
+.dagshub/
+
+# Local database
+*.db
+*.sqlite
+*.sqlite3
+
+# Unnecessary files
+.vscode/
+.idea/
+*.log
+.DS_Store
