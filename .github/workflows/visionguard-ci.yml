@@ -1,0 +1,43 @@
+name: VisionGuard CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest ruff
+          python -m pip install -r requirements-docker-optimized.txt
+
+      - name: Run linting
+        run: python -m ruff check tests/test_visionguard.py
+
+      - name: Run tests
+        run: python -m pytest tests/test_visionguard.py -v
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile.optimized
+          push: false
+          tags: visionguard:ci
