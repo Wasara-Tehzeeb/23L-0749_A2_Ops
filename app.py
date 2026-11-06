@@ -2,6 +2,8 @@ import base64
 from io import BytesIO
 
 import uuid
+import os
+import requests
 from pathlib import Path
 
 from PIL import Image
@@ -13,6 +15,13 @@ from src.inference import predict_image, MODEL_URI
 from src.database import init_db, save_prediction, get_predictions
 
 BASE_DIR = Path(__file__).resolve().parent
+
+CLOUD_API_URL = os.environ.get(
+    "VISIONGUARD_CLOUD_API_URL",
+    "https://except-surfing-opening-percentage.trycloudflare.com/api/predict"
+)
+
+CLOUD_API_KEY = os.environ.get("VISIONGUARD_API_KEY")
 
 app = Flask(__name__)
 init_db()
@@ -71,7 +80,21 @@ def predict():
     try:
         with Image.open(file.stream) as image:
             image.load()
-            result = predict_image(image)
+            if not CLOUD_API_KEY:
+                raise RuntimeError("VISIONGUARD_API_KEY is not configured")
+
+            buffer_api = BytesIO()
+            image.convert("RGB").save(buffer_api, format="JPEG")
+            buffer_api.seek(0)
+
+            response = requests.post(
+                CLOUD_API_URL,
+                headers={"X-API-Key": CLOUD_API_KEY},
+                files={"image": ("upload.jpg", buffer_api, "image/jpeg")},
+                timeout=120
+            )
+            response.raise_for_status()
+            result = response.json()
 
             # Create an image preview entirely in memory
             buffer = BytesIO()
